@@ -7,12 +7,17 @@ d3.json(queryUrl, function(data) {
   createFeatures(data.features);
 });
 
+function circleSize(feature)
+{
+  return feature.properties.mag * 7; //scaling up the radius of the circle in relation to the magnitude of the earthquake
+}
+
 //logic for determining color of the circles
 function circleOptions(feature){
   if(feature.geometry.coordinates[2] >= 90)
   {
 return  {
-  radius: 8,
+  radius: circleSize(feature),
   fillColor: "#ff5f65", //dark red
   color: "#000",
   weight: 1,
@@ -22,7 +27,7 @@ return  {
 else if (feature.geometry.coordinates[2] < 90 && feature.geometry.coordinates[2] >= 70)
 {
   return {
-    radius: 8,
+    radius: circleSize(feature),
     fillColor: "#fca35d", //light red
     color: "#000",
     weight: 1,
@@ -32,7 +37,7 @@ else if (feature.geometry.coordinates[2] < 90 && feature.geometry.coordinates[2]
   else if (feature.geometry.coordinates[2] < 70 && feature.geometry.coordinates[2] >= 50)
 {
   return {
-    radius: 8,
+    radius: circleSize(feature),
     fillColor: "#fcb62b", //orange
     color: "#000",
     weight: 1,
@@ -42,7 +47,7 @@ else if (feature.geometry.coordinates[2] < 90 && feature.geometry.coordinates[2]
   else if (feature.geometry.coordinates[2] < 50 && feature.geometry.coordinates[2] >= 30)
 {
   return {
-    radius: 8,
+    radius: circleSize(feature),
     fillColor: "#f7db11", //yellow
     color: "#000",
     weight: 1,
@@ -52,7 +57,7 @@ else if (feature.geometry.coordinates[2] < 90 && feature.geometry.coordinates[2]
   else if (feature.geometry.coordinates[2] < 30 && feature.geometry.coordinates[2] >= 10)
 {
   return {
-    radius: 8,
+    radius: circleSize(feature),
     fillColor: "#dcf400", //yellow green
     color: "#000",
     weight: 1,
@@ -62,7 +67,7 @@ else if (feature.geometry.coordinates[2] < 90 && feature.geometry.coordinates[2]
   else
 {
   return {
-    radius: 8,
+    radius: circleSize(feature),
     fillColor: "#a3f600", //light green
     color: "#000",
     weight: 1,
