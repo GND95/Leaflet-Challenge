@@ -7,7 +7,18 @@ d3.json(queryUrl, function(data) {
   createFeatures(data.features);
 });
 
+var geojsonMarkerOptions = {
+  radius: 8,
+  fillColor: "#ff7800",
+  color: "#000",
+  weight: 1,
+  opacity: 1,
+  fillOpacity: 0.8
+};
+
 function createFeatures(earthquakeData) {
+
+
 
   // Define a function we want to run once for each feature in the features array
   // Give each feature a popup describing the place and time of the earthquake
@@ -19,6 +30,9 @@ function createFeatures(earthquakeData) {
   // Create a GeoJSON layer containing the features array on the earthquakeData object
   // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
+    pointToLayer: function (feature, latlng) {
+      return L.circleMarker(latlng, geojsonMarkerOptions);//return the points as a circle rather than a pin on the map
+  },
     onEachFeature: onEachFeature
   });
 
@@ -74,9 +88,9 @@ function createMap(earthquakes) {
 
 //Create legend
 var legend = L.control({ position: "bottomright" });
-legend.onAdd = function(map) {
+legend.onAdd = function() {
   var div = L.DomUtil.create("div", "info legend");
-  div.innerHTML += "<h4>Severity</h4>";
+  div.innerHTML += "<h4>Earthquake<br>Depth</h4>";
   div.innerHTML += '<i style="background: #a3f600"></i><span>-10-10</span><br>';
   div.innerHTML += '<i style="background: #dcf400"></i><span>10-30</span><br>';
   div.innerHTML += '<i style="background: #f7db11"></i><span>30-50</span><br>';
