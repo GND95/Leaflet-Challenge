@@ -7,19 +7,71 @@ d3.json(queryUrl, function(data) {
   createFeatures(data.features);
 });
 
-var geojsonMarkerOptions = {
+//logic for determining color of the circles
+function circleOptions(feature){
+  if(feature.geometry.coordinates[2] >= 90)
+  {
+return  {
   radius: 8,
-  fillColor: "#ff7800",
+  fillColor: "#ff5f65", //dark red
   color: "#000",
   weight: 1,
-  opacity: 1,
   fillOpacity: 0.8
+}
+  }
+else if (feature.geometry.coordinates[2] < 90 && feature.geometry.coordinates[2] >= 70)
+{
+  return {
+    radius: 8,
+    fillColor: "#fca35d", //light red
+    color: "#000",
+    weight: 1,
+    fillOpacity: 0.8
+}
+  }
+  else if (feature.geometry.coordinates[2] < 70 && feature.geometry.coordinates[2] >= 50)
+{
+  return {
+    radius: 8,
+    fillColor: "#fcb62b", //orange
+    color: "#000",
+    weight: 1,
+    fillOpacity: 0.8
+}
+  }
+  else if (feature.geometry.coordinates[2] < 50 && feature.geometry.coordinates[2] >= 30)
+{
+  return {
+    radius: 8,
+    fillColor: "#f7db11", //yellow
+    color: "#000",
+    weight: 1,
+    fillOpacity: 0.8
+}
+  }
+  else if (feature.geometry.coordinates[2] < 30 && feature.geometry.coordinates[2] >= 10)
+{
+  return {
+    radius: 8,
+    fillColor: "#dcf400", //yellow green
+    color: "#000",
+    weight: 1,
+    fillOpacity: 0.8
+}
+  }
+  else
+{
+  return {
+    radius: 8,
+    fillColor: "#a3f600", //light green
+    color: "#000",
+    weight: 1,
+    fillOpacity: 0.8
+}
+  }
 };
 
 function createFeatures(earthquakeData) {
-
-
-
   // Define a function we want to run once for each feature in the features array
   // Give each feature a popup describing the place and time of the earthquake
   function onEachFeature(feature, layer) {
@@ -31,7 +83,7 @@ function createFeatures(earthquakeData) {
   // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
     pointToLayer: function (feature, latlng) {
-      return L.circleMarker(latlng, geojsonMarkerOptions);//return the points as a circle rather than a pin on the map
+      return L.circleMarker(latlng, circleOptions(feature));//return the points as a circle rather than a pin on the map
   },
     onEachFeature: onEachFeature
   });
