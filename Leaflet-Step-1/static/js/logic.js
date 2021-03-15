@@ -71,4 +71,23 @@ function createMap(earthquakes) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+
+//Legend
+var legend = L.control({ position: "bottomright" });
+legend.onAdd = function() {
+  var div = L.DomUtil.create("div", "info legend");
+  var legendInfo = "<h2>Earthquake Severity</h2>" +
+  "<h3>-10-10</h3>" +
+  "<h3>10-30</h3>" +
+  "<h3>30-50</h3>" +
+  "<h3>50-70</h3>" +
+  "<h3>70-90</h3>" +
+  "<h3>90+</h3>";
+  
+  div.innerHTML = legendInfo;
+  
+  return div;
+};
+
+legend.addTo(myMap);
 }
