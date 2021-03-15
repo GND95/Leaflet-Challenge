@@ -72,20 +72,18 @@ function createMap(earthquakes) {
     collapsed: false
   }).addTo(myMap);
 
-//Legend
+//Create legend
 var legend = L.control({ position: "bottomright" });
-legend.onAdd = function() {
+legend.onAdd = function(map) {
   var div = L.DomUtil.create("div", "info legend");
-  var legendInfo = "<h2>Earthquake Severity</h2>" +
-  "<h3>-10-10</h3>" +
-  "<h3>10-30</h3>" +
-  "<h3>30-50</h3>" +
-  "<h3>50-70</h3>" +
-  "<h3>70-90</h3>" +
-  "<h3>90+</h3>";
-  
-  div.innerHTML = legendInfo;
-  
+  div.innerHTML += "<h4>Severity</h4>";
+  div.innerHTML += '<i style="background: #a3f600"></i><span>-10-10</span><br>';
+  div.innerHTML += '<i style="background: #dcf400"></i><span>10-30</span><br>';
+  div.innerHTML += '<i style="background: #f7db11"></i><span>30-50</span><br>';
+  div.innerHTML += '<i style="background: #fcb62b"></i><span>50-70</span><br>';
+  div.innerHTML += '<i style="background: #fca35d"></i><span>70-90</span><br>';
+  div.innerHTML += '<i style="background: #ff5f65"></i><span>90+</span><br>';
+
   return div;
 };
 
